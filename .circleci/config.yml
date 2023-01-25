@@ -94,7 +94,7 @@ jobs:
           name: Test_frontend
           command: |
             cd frontend/
-            npm install
+            install --legacy-peer-deps
             npm run test
                 
   test-backend:
