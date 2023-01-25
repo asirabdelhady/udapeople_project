@@ -121,7 +121,7 @@ export enum SalaryType {
 }
 
 export function getDateFromString(date: string): Date {
-  return moment.moment(date).format('M/D/YYYY').stringify;
+  return moment(date).format('M/D/YYYY').stringify;
 }
 
 function getGenderFromEnum(gender: string): Gender {
