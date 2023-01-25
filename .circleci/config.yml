@@ -55,7 +55,6 @@ jobs:
             cd frontend/
             npm install
             npm run build
-            exit 1
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
@@ -106,10 +105,10 @@ jobs:
       - checkout
       # Restore from cache
       - restore_cache:
-          keys: [frontend-build]
+          keys: [backend-build]
       # Your job code here
       - run:
-          name: Test_frontend
+          name: Test_backend
           command: |
             cd frontend/
             npm test
