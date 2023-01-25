@@ -94,7 +94,7 @@ jobs:
           name: Test_frontend
           command: |
             cd frontend/
-            install npm
+            npm install
             npm run test
                 
   test-backend:
