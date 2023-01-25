@@ -120,7 +120,7 @@ export enum SalaryType {
   HOURLY = 'hourly',
 }
 
-export function getDateFromString(date: Date): Date {
+export function getDateFromString(date: string): Date {
   return moment(date).format('M/D/YYYY');
 }
 
