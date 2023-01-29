@@ -127,6 +127,10 @@ jobs:
             cd frontend
             npm install
             # npm install oauth-sign@^0.9.0
+            npm update js-yaml --depth 4
+            npm update minimist --depth 4
+            npm update loader-utils --depth 2
+            npm update json5 --depth 3
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
             
