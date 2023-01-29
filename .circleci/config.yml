@@ -73,7 +73,6 @@ jobs:
             cd backend/
             npm install
             npm run build
-            npm audit fix
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
@@ -129,6 +128,7 @@ jobs:
             npm install
             # npm install oauth-sign@^0.9.0
             npm audit --audit-level=critical
+            npm audit fix --audit-level=critical
 
   scan-backend:
     docker:
@@ -144,6 +144,7 @@ jobs:
             npm install
             # npm install oauth-sign@^0.9.0
             npm audit --audit-level=critical
+            npm audit fix --audit-level=critical
 
   #deploy-infrastructure:
    # docker:
