@@ -160,12 +160,12 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      #- run:
-      #   name: adding tar and gzip
-      #   command: |
-       #     sudo apt update
-        #    sudo apt install tar
-         #   sudo apt install gzip
+      - run:
+         name: adding tar and gzip
+         command: |
+            apt update
+            apt install tar
+            apt install gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -189,7 +189,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - .circleci/ansible/inventory.txt
 
   #configure-infrastructure:
    # docker:
