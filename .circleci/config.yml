@@ -161,6 +161,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: adding tar and gzip
+          command: |
+            sudo apt update
+            sudo apt install tar
+            sudo apt install gzip
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
@@ -179,7 +185,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws ec2 describe-instances --instance-ids i-057681e2700338fbd --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> .circleci/ansible/inventory.txt
+            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
