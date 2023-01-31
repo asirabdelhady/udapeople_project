@@ -209,7 +209,7 @@ jobs:
             yum update
             yum install tar -y
             yum install gzip -y
-            yum install python3-pip --fix-missing -y
+            yum install python3-pip -y
             pip install --user ansible -y
             pip install ansible-core==2.12.3 -y
        - attach_workspace:
