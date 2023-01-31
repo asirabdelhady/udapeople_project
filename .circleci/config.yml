@@ -201,19 +201,19 @@ jobs:
        - checkout
        - add_ssh_keys:
           fingerprints:
-            - "69:15:eb:50:d7:dc:0d:eb:07:f1:e9:0e:92:3d:bd:51"
-       - attach_workspace:
-          at: ~/ 
+            - "69:15:eb:50:d7:dc:0d:eb:07:f1:e9:0e:92:3d:bd:51" 
        - run:
           name: Install dependencies
           command: |
             yum upgrade
             yum update
-            yum install tar
-            yum install gzip
-            yum install python3-pip --fix-missing
-            pip install --user ansible
-            pip install ansible-core==2.12.3
+            yum install tar -y
+            yum install gzip -y
+            yum install python3-pip --fix-missing -y
+            pip install --user ansible -y
+            pip install ansible-core==2.12.3 -y
+       - attach_workspace:
+          at: ~/
        - run:
           name: Configure server
           command: |
