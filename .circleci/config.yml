@@ -210,8 +210,8 @@ jobs:
             yum install tar -y
             yum install gzip -y
             yum install python3-pip -y
-            pip install --user ansible -y
-            pip install ansible-core==2.12.3 -y
+            sudo pip install --user ansible -y
+            sudo pip install ansible-core==2.12.3 -y
        - attach_workspace:
           at: ~/
        - run:
