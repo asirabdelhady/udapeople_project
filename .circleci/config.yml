@@ -207,13 +207,13 @@ jobs:
        - run:
           name: Install dependencies
           command: |
-            sudo yum update
-            sudo yum upgrade
-            sudo yum install tar
-            sudo yum install gzip
-            sudo yum install python3-pip --fix-missing
-            sudo pip install --user ansible
-            sudo pip install ansible-core==2.12.3
+            yum upgrade
+            yum update
+            yum install tar
+            yum install gzip
+            yum install python3-pip --fix-missing
+            pip install --user ansible
+            pip install ansible-core==2.12.3
        - run:
           name: Configure server
           command: |
