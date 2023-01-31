@@ -127,7 +127,7 @@ jobs:
           command: |
             cd frontend
             npm install
-            # npm install oauth-sign@^0.9.0
+            npm install oauth-sign@^0.9.0
             npm update js-yaml --depth 4
             npm update minimist --depth 4
             npm update loader-utils --depth 2
@@ -148,7 +148,7 @@ jobs:
           command: |
             cd backend
             npm install
-            # npm install oauth-sign@^0.9.0
+            npm install oauth-sign@^0.9.0
             npm install passport-jwt@4.0.1
             npm update path-parse --depth 3
             npm update mkdirp --depth 2
@@ -196,7 +196,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-       - image: ansible/ansible
+       - image: ubuntu-2004:2022.10.1
     steps:
        - checkout
        - add_ssh_keys:
@@ -213,7 +213,7 @@ jobs:
             sudo apt install gzip
             sudo apt install python3-pip --fix-missing
             sudo apt install awscli 
-            sudo pip install ansible
+            sudo pip install --user ansible
             sudo pip install ansible-core==2.12.3
        - run:
           name: Configure server
