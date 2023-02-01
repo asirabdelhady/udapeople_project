@@ -217,10 +217,10 @@ jobs:
        - run:
           name: Adding hosts to known hosts
           command: |
-          #!/bin/bash/
-          HOST="$(cat .circleci/ansible/inventory.txt)"
-          ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
-          echo "HOST added"
+            #!/bin/bash/
+            HOST="$(cat .circleci/ansible/inventory.txt)"
+            ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
+            echo "HOST added"
        - run:
           name: Configure server
           command: |
