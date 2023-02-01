@@ -215,10 +215,16 @@ jobs:
        - attach_workspace:
           at: ~/
        - run:
+          name: Adding hosts to known hosts
+          command: |
+          #!/bin/bash/
+          HOST="$(cat .circleci/ansible/inventory.txt)"
+          ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
+          echo "HOST added"
+       - run:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ssh-keyscan inventory.txt >> $HOME/.ssh/known_hosts
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure      
 
