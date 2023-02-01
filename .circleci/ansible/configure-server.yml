@@ -33,7 +33,8 @@
     - TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
     - TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     - TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}" 
-    # Add more env vars here
+    - ANSIBLE_HOST_KEY_CHECKING: False
+        # Add more env vars here
 
   roles:
     # Your code here
