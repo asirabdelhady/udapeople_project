@@ -212,7 +212,7 @@ jobs:
             sudo apt install python3-pip
             sudo apt install ansible -y
             sudo pip install --user ansible
-            export ANSIBLE_HOST_KEY_CHECKING=False
+            ssh -o StrictHostKeyChecking=no
        - attach_workspace:
           at: ~/
        - run:
