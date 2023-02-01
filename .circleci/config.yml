@@ -211,10 +211,7 @@ jobs:
             sudo apt install gzip -y
             sudo apt install python3-pip
             sudo apt install ansible -y
-            sudo pip install --user ansible
-            ssh \
-              -o UserKnownHostsFile=PATH_TO_YOUR_KNOWN_HOSTS_FILE \
-              -o StrictHostKeyChecking=yes "$user@$host"
+            sudo pip install ansible
        - attach_workspace:
           at: ~/
        - run:
