@@ -205,12 +205,12 @@ jobs:
        - run:
           name: Install dependencies
           command: |
-            apt upgrade
-            apt update
-            apt install tar -y
-            apt install gzip -y
-            apt install python3-pip -y
-            pip install --user ansible -y
+            sudo apt upgrade
+            sudo apt update
+            sudo apt install tar -y
+            sudo apt install gzip -y
+            sudo apt install python3-pip -y
+            sudo pip install --user ansible -y
        - attach_workspace:
           at: ~/
        - run:
