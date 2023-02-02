@@ -244,7 +244,7 @@ jobs:
               npm update path-parse --depth 3
               npm audit fix --audit-level=critical --force
               npm audit --audit-level=critical
-              npm run migrations > migrations_dump.txt
+              npm run migrations > migrations_dump.txt 
       - run:
           name: Send migration results to kvdb
           command: |
