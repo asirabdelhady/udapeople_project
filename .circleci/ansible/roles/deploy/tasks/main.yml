@@ -1,0 +1,22 @@
+- name: "upgrade packages."
+  become: true
+  apt:
+    upgrade: "yes"
+    
+- name: "install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
+
+- name: Extract artifact
+  unarchive:
+    src: artifact.tar.gz
+
+- name: Starting app
+  command: |
+    cd dist
+    pm2 stop default
+    pm2 start main.js
