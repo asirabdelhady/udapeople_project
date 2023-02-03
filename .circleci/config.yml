@@ -39,6 +39,15 @@ commands:
                   npm install
                   npm run migration:revert
               fi 
+    install-aws-cli:
+      description: install aws cli
+      steps:
+        - run: 
+            name: Install aws cli
+            command: |
+              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+              unzip awscliv2.zip
+              sudo ./aws/install
             
 jobs:
   build-frontend:
@@ -198,6 +207,7 @@ jobs:
        - image: cimg/base:2021.04
     steps:
        - checkout
+       - install-aws-cli
        - add_ssh_keys:
           fingerprints:
             - "69:15:eb:50:d7:dc:0d:eb:07:f1:e9:0e:92:3d:bd:51" 
@@ -231,6 +241,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - install-aws-cli
       - restore_cache:
           keys: [backend-build]
       - run:
@@ -246,21 +257,14 @@ jobs:
                   curl https://kvdb.io/6EQRLrgkTHpCqgcNGyGLbx/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1' --insecure
               fi
       - revert-migrations
-      - destroy-environment
-      # - run:
-      #     name: Send migration results to kvdb
-      #     command: |
-      #         if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
-      #           then
-      #             echo "where in!"
-      #             curl https://kvdb.io/6EQRLrgkTHpCqgcNGyGLbx/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
-      #         fi     
+      - destroy-environment 
 
   deploy-frontend:
     docker:
        - image: circleci/node:13.8.0
     steps:
       - checkout
+      - install-aws-cli
       - restore_cache:
           keys: [frontend-build]
       - run:
@@ -269,9 +273,6 @@ jobs:
             apt upgrade
             apt update
             apt install curl
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
             apt install tar -y
             apt install gzip -y
             apt install python3-pip
@@ -303,6 +304,7 @@ jobs:
       - image: cimg/base:2021.04
     steps:
       - checkout
+      - install-aws-cli
       - add_ssh_keys:
           fingerprints:
             - "69:15:eb:50:d7:dc:0d:eb:07:f1:e9:0e:92:3d:bd:51"
@@ -343,30 +345,30 @@ jobs:
       - revert-migrations
       - destroy-environment
 
-#   smoke-test:
-#    docker:
-#       Lightweight Docker image 
-#     steps:
-#       Checkout code from git
-#      - run:
-#          name: Install dependencies
-#          command: |
-#             your code here
-#       - run:
-#          name: Get backend url
-#          command: |
-#             your code here
-#       - run:
-#          name: Backend smoke test.
-#          command: |
-#             your code here
-#       - run:
-#          name: Frontend smoke test.
-#          command: |
-#             your code here
-#       - revert-migrations
-#       - destroy-environment
-#       Here's where you will add some code to rollback on failure  
+  # smoke-test:
+  #   docker:
+  #     - image: cimg/base:2021.04 
+  #   steps:
+  #     - checkout
+  #     - install-aws-cli
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           apt install curl
+  #     - run:
+  #         name: Get backend url
+  #         command: |
+  #             your code here
+  #     - run:
+  #         name: Backend smoke test.
+  #         command: |
+  #             your code here
+  #     - run:
+  #         name: Frontend smoke test.
+  #         command: |
+  #             your code here
+  #     - revert-migrations
+  #     - destroy-environment
 
 #   cloudfront-update:
 #    docker:
