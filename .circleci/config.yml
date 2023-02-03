@@ -245,7 +245,8 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/6EQRLrgkTHpCqgcNGyGLbx/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1' -k
+              echo "where in!"
+              curl https://kvdb.io/6EQRLrgkTHpCqgcNGyGLbx/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi     
 
   deploy-frontend:
@@ -310,6 +311,12 @@ jobs:
             sudo pip install ansible
       - attach_workspace:
             at: ~/
+      - run:
+          name: Adding hosts to known hosts
+          command: |
+            #!/bin/bash/
+            HOST="$(cat .circleci/ansible/inventory.txt)"
+            ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
       - run:
           name: Deploy backend
           command: |
