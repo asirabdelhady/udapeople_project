@@ -250,7 +250,7 @@ jobs:
 
   deploy-frontend:
     docker:
-       - image: cimg/base:2021.04
+       - image: amazon/aws-cli
     steps:
       - checkout
       - restore_cache:
@@ -258,16 +258,16 @@ jobs:
       - run:
          name: Install dependencies
          command: |
-            sudo apt upgrade
-            sudo apt update
-            sudo apt install curl
+            yum upgrade
+            yum update
+            yum install curl
             curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get install -y nodejs
-            sudo apt install tar -y
-            sudo apt install gzip -y
-            sudo apt install python3-pip
-            sudo apt install ansible -y
-            sudo pip install ansible
+            yum-get install -y nodejs
+            yum install tar -y
+            yum install gzip -y
+            yum install python3-pip
+            yum install ansible -y
+            pip install ansible
       - attach_workspace:
           at: ~/
       - run:
