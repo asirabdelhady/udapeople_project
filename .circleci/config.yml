@@ -256,7 +256,7 @@ jobs:
 
   deploy-frontend:
     docker:
-       - image: amazon/aws-cli
+       - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -264,15 +264,16 @@ jobs:
       - run:
          name: Install dependencies
          command: |
-            yum upgrade
-            yum update
-            yum install curl
-            curl -fsSL https://deb.nodesource.com/setup_14.x | -E bash -
-            yum-get install -y nodejs
-            yum install tar -y
-            yum install gzip -y
-            yum install python3-pip
-            yum install ansible -y
+            apt upgrade
+            apt update
+            apt install curl
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            apt install tar -y
+            apt install gzip -y
+            apt install python3-pip
+            apt install ansible -y
             pip install ansible
       - attach_workspace:
           at: ~/
