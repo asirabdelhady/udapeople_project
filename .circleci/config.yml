@@ -172,7 +172,7 @@ jobs:
          name: adding tar and gzip
          command: |
             yum upgrade
-            yum update
+            yum update -y
             yum install tar -y
             yum install gzip -y
       - run:
