@@ -322,7 +322,7 @@ jobs:
             sudo apt install ansible -y
             sudo pip install ansible
       - attach_workspace:
-            at: ~/
+          at: ~/
       - run:
           name: Adding hosts to known hosts
           command: |
