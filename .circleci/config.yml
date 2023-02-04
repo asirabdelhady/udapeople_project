@@ -223,12 +223,12 @@ jobs:
             sudo pip install ansible
        - attach_workspace:
           at: ~/
-       - run:
-          name: Adding hosts to known hosts
-          command: |
-            #!/bin/bash/ 
-            HOST="$(cat .circleci/ansible/inventory.txt)"
-            ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
+      #  - run:
+      #     name: Adding hosts to known hosts
+      #     command: |
+      #       #!/bin/bash/ 
+      #       HOST="$(cat .circleci/ansible/inventory.txt)"
+      #       ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
        - run:
           name: Configure server
           command: |
