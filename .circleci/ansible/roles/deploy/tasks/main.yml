@@ -13,7 +13,7 @@
 
 - name: Extract artifact
   unarchive:
-    src: ~/artifact.tar.gz
+    remote_src: artifact.tar.gz
     dest: ~/
 
 - name: Starting app
