@@ -363,24 +363,18 @@ jobs:
               sudo apt-get install -y nodejs 
         - run:
             name: Get backend url
-            command: |               
-                export API_URL = "http://${BACKEND_URL}:3030" 
-                echo "${API_URL}"
+            command: |
+                export BACKEND_URL=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)                
+                export API_URL="http://${BACKEND_URL}:3030" 
+        - run:
+            name: Backend smoke test.
+            command: |
                 if curl "${API_URL}/api/status" | grep "ok"
                 then
                     return 0
                 else
                     return 1
                 fi
-        # - run:
-        #     name: Backend smoke test.
-        #     command: |
-        #         if curl "${API_URL}/api/status" | grep "ok"
-        #         then
-        #             return 0
-        #         else
-        #             return 1
-        #         fi
         - run:
             name: Frontend smoke test.
             command: |
