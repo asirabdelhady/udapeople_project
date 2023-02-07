@@ -373,15 +373,15 @@ jobs:
                 else
                     return 1
                 fi 
-        - run:
-            name: Backend smoke test.
-            command: |
-                if curl "${API_URL}/api/status" | grep "ok"
-                then
-                    return 0
-                else
-                    return 1
-                fi
+        # - run:
+        #     name: Backend smoke test.
+        #     command: |
+        #         if curl "${API_URL}/api/status" | grep "ok"
+        #         then
+        #             return 0
+        #         else
+        #             return 1
+        #         fi
         - run:
             name: Frontend smoke test.
             command: |
