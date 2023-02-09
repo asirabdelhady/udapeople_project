@@ -338,8 +338,8 @@ jobs:
               cd ..
               # Zip the directory\
               mkdir ~/project/.circleci/ansible/roles/deploy/files 
-              tar -C backend -czvf artifact.tar.gz .
-              cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files
+              ls
+              tar -C backend -czvf artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files
               cd .circleci/ansible
               echo "Contents  of the inventory.txt file is"
               cat inventory.txt
@@ -390,7 +390,7 @@ jobs:
                 if curl -s ${URL} | grep "Welcome"
                 then
                     # Change this to 0 after the job fails
-                  exit 1
+                  exit 0
                 else
                   exit 1
                 fi
@@ -460,8 +460,8 @@ workflows:
           requires: [run-migrations]
       - deploy-backend:
           requires: [run-migrations]
-      #- smoke-test:
-      #    requires: [deploy-backend, deploy-frontend]
+      - smoke-test:
+          requires: [deploy-backend, deploy-frontend]
       #- cloudfront-update:
       #    requires: [smoke-test]
       #- cleanup:
