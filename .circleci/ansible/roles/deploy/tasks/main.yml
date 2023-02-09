@@ -11,15 +11,23 @@
     production: yes
     state: present
 
-- name: Extract artifact
-  become: true
+- name: "mkdir dir  "
+  file:
+    path: ~/Backend-Application
+    state: directory
+
+- name: "Unarchive tar"
   unarchive:
     src: artifact.tar.gz
-    dest: ~/
+    dest: ~/Backend-Application
 
-- name: Starting app
-  become: true
+- name: "installing dependencies"
   shell: |
-    cd ~/dist
+    cd ~/Backend-Application
+    npm i
+
+- name: "run with PM2"
+  shell: |
+    cd ~/Backend-Application/dist
     pm2 stop default
     pm2 start main.js
