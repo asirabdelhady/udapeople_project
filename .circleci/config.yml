@@ -305,6 +305,8 @@ jobs:
     steps:
       - checkout
       - install-aws-cli
+      - restore_cache:
+          keys: [backend-build]
       - add_ssh_keys:
           fingerprints:
             - "69:15:eb:50:d7:dc:0d:eb:07:f1:e9:0e:92:3d:bd:51"
@@ -335,10 +337,9 @@ jobs:
               cd backend
               npm i
               npm run build
+              tar -czvf artifact.tar.gz /dist/* package*
               cd ..
-              # Zip the directory\
-              tar -C backend -czvf artifact.tar.gz .
-              cp artifact.tar.gz .circleci/ansible/roles/deploy/files
+              cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
               cd .circleci/ansible
               echo "Contents  of the inventory.txt file is"
               cat inventory.txt
