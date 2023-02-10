@@ -407,22 +407,37 @@ jobs:
         - revert-migrations
         - destroy-environment
 
-#   cloudfront-update:
-#    docker:
-#       Docker image here that supports AWS CLI
-#     steps:
-#       Checkout code from git
-#      - run:
-#          name: Install dependencies
-#          command: |
-#             your code here
-#       - run:
-#          name: Update cloudfront distribution
-#          command: |
-#             your code here
-#       - revert-migrations
-#       - destroy-environment
-#       Here's where you will add some code to rollback on failure  
+  # cloudfront-update:
+  #   docker:
+  #     - image: cimg/base:2021.04
+  #   steps:
+  #     - checkout
+  #     - install-aws-cli
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           sudo apt upgrade
+  #           sudo apt update
+  #           sudo apt install curl
+  #           curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  #           sudo apt-get install -y nodejs
+  #           sudo apt install tar -y
+  #           sudo apt install gzip -y
+  #           sudo apt install python3-pip
+  #           sudo apt install ansible -y
+  #           sudo pip install ansible
+  #     - run:
+  #         name: Update cloudfront distribution
+  #         command: |
+  #             export OldWorkflowID=$()
+
+  #             aws cloudformation deploy \
+  #             --template-file .circleci/files/cloudfront.yml \
+  #             --stack-name InitialStack \
+  #             --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+  #             --tags project=udapeople
+  #     - revert-migrations
+  #     - destroy-environment  
 
 # cleanup:
 #    docker:

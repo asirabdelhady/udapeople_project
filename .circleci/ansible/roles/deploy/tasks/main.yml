@@ -23,7 +23,7 @@
 
 - name: "installing dependencies"
   shell: |
-    cd ~/Backend-Application
+    cd ~/backend-app
     npm i
 
 - name: "Starting app"
