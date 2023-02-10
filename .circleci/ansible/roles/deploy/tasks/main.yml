@@ -1,9 +1,9 @@
-- name: "upgrade packages."
+- name: "Upgrade packages."
   become: true
   apt:
     upgrade: "yes"
     
-- name: "install pm2"
+- name: "Install pm2"
   become: true
   npm:
     name: pm2
@@ -11,23 +11,28 @@
     production: yes
     state: present
 
-- name: "mkdir dir"
+- name: Copying atifact file
+  copy:
+    src: artifact.tar.gz
+    dest: ~/
+
+- name: "Making dir"
   file:
-    path: ~/Backend-Application
+    path: ~/backend-app
     state: directory
 
-- name: "Unarchive tar"
+- name: "Extracting app"
   unarchive:
     src: artifact.tar.gz
-    dest: ~/Backend-Application
+    dest: ~/backend-app
 
 - name: "installing dependencies"
   shell: |
     cd ~/Backend-Application
     npm i
 
-- name: "run with PM2"
+- name: "Starting app"
   shell: |
-    cd ~/Backend-Application/dist
+    cd ~/backend-app/dist
     pm2 stop default
     pm2 start main.js
