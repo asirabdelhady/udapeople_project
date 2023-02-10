@@ -11,7 +11,7 @@
     production: yes
     state: present
 
-- name: "mkdir dir  "
+- name: "mkdir dir"
   file:
     path: ~/Backend-Application
     state: directory
