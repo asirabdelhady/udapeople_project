@@ -357,6 +357,14 @@ jobs:
       steps:
         - checkout
         - install-aws-cli
+        - attach_workspace:
+            at: ~/
+        - run:
+            name: Adding hosts to known hosts
+            command: |
+              #!/bin/bash/
+              HOST="$(cat .circleci/ansible/inventory.txt)"
+              ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
         - run:
             name: Install dependencies
             command: |
