@@ -11,11 +11,6 @@
     production: yes
     state: present
 
-- name: Copying atifact file
-  copy:
-    src: artifact.tar.gz
-    dest: ~/
-
 - name: "Making dir"
   file:
     path: ~/backend-app
