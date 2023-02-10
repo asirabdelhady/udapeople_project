@@ -352,7 +352,7 @@ jobs:
 
   smoke-test:
       docker:
-        - image: cimg/base:2021.04 
+        - image: ubuntu:20.04 
       steps:
         - checkout
         - install-aws-cli
