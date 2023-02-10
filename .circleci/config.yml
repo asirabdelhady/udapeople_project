@@ -353,7 +353,7 @@ jobs:
 
   smoke-test:
       docker:
-        - image: alpine:3.14 
+        - image: cimg/base:2021.04 
       steps:
         - checkout
         - install-aws-cli
