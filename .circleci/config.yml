@@ -348,8 +348,8 @@ jobs:
               echo "Contents  of the inventory.txt file is"
               cat inventory.txt
               ansible-playbook -i inventory.txt deploy-backend.yml 
-#      - revert-migrations
-#      - destroy-environment
+      - revert-migrations
+      - destroy-environment
 
   smoke-test:
       docker:
@@ -397,8 +397,8 @@ jobs:
                 else
                     exit 1
                 fi 
-#        - revert-migrations
-#        - destroy-environment
+        - revert-migrations
+        - destroy-environment
 
 #   cloudfront-update:
 #     docker:
