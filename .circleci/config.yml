@@ -324,14 +324,14 @@ jobs:
             sudo apt install python3-pip
             sudo apt install ansible -y
             sudo pip install ansible
-      - attach_workspace:
-          at: ~/
       # - run:
       #     name: Adding hosts to known hosts
       #     command: |
       #       #!/bin/bash/
       #       HOST="$(cat .circleci/ansible/inventory.txt)"
       #       ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
+      - attach_workspace:
+          at: ~/
       - run:
           name: Deploy backend
           command: |
@@ -342,7 +342,7 @@ jobs:
               tar -C backend -czvf artifact.tar.gz .
               cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files
               echo "Contents  of the inventory.txt file is"
-              cat inventory.txt
+              cat - project/.circleci/ansible/inventory.txt
               ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ~/inventory.txt .circleci/ansible/deploy-backend.yml      
       - revert-migrations
       - destroy-environment
