@@ -224,12 +224,6 @@ jobs:
             sudo pip install ansible
        - attach_workspace:
           at: ~/
-      #  - run:
-      #     name: Adding hosts to known hosts
-      #     command: |
-      #       #!/bin/bash/ 
-      #       HOST="$(cat .circleci/ansible/inventory.txt)"
-      #       ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
        - run:
           name: Configure server
           command: |
@@ -324,12 +318,6 @@ jobs:
             sudo apt install python3-pip
             sudo apt install ansible -y
             sudo pip install ansible
-      # - run:
-      #     name: Adding hosts to known hosts
-      #     command: |
-      #       #!/bin/bash/
-      #       HOST="$(cat .circleci/ansible/inventory.txt)"
-      #       ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
       - attach_workspace:
           at: ~/
       - run:
@@ -356,12 +344,6 @@ jobs:
         - install-aws-cli
         - attach_workspace:
             at: ~/
-        # - run:
-        #     name: Adding hosts to known hosts
-        #     command: |
-        #       #!/bin/bash/
-        #       HOST="$(cat .circleci/ansible/inventory.txt)"
-        #       ssh-keyscan $HOST >> $HOME/.ssh/known_hosts
         - run:
             name: Install dependencies
             command: |
@@ -378,7 +360,7 @@ jobs:
                 if curl -s ${URL} | grep "Welcome"
                 then
                     # Change this to 0 after the job fails
-                  exit 0
+                  exit 1
                 else
                   exit 1
                 fi
