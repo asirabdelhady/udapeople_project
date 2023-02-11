@@ -401,16 +401,23 @@ jobs:
       - run:
           name: Update cloudfront distribution
           command: |
-              export OldWorkflowID=$( aws cloudformation list-exports --query "Exports[?Name=='WorkflowID\'].Value --no-paginate --output text")
-              echo $OldWorkflowID > ~/OldWorkflowID.txt
-              cat ~/OldWorkflowID.txt
-              aws cloudformation deploy \
-              --template-file .circleci/files/cloudfront.yml \
-              --stack-name InitialStack \
-              --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --tags project=udapeople
-              echo OldWorkflowID:$OldWorkflowID
-              echo NewWorkflowID:udapeople-${CIRCLE_WORKFLOW_ID:0:7} 
+            export OldWorkflowID=$(aws cloudformation list-exports \
+            --query "Exports[?Name==\`WorkflowID\`].Value" \
+            --no-paginate --output text)
+            echo $OldWorkflowID > ~/OldWorkflowID.txt
+
+            aws cloudformation deploy \
+            --template-file .circleci/files/cloudfront.yml \
+            --stack-name InitialStack \
+            --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --tags project=udapeople
+            echo OldWorkflowID: "$(cat ~/OldWorkflowID.txt)"
+            echo NewWorkflowID:udapeople-${CIRCLE_WORKFLOW_ID:0:7} 
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - OldWorkflowID.txt
+
       - revert-migrations 
       - destroy-environment  
 
@@ -420,15 +427,19 @@ jobs:
     steps:
       - checkout
       - install-aws-cli
+      - attach_workspace:
+          at: ~/
       - run:
           name: Get old stack workflow id
           command: |
-            export OldWorkflowID=$(aws cloudformation \
-            list-exports --query "Exports[?Name==`WorkflowID\`].Value" \
-            --no-paginate --output text)
+            cat ~/OldWorkflowID.txt
+            export OldWorkflowID=$(cat ~/OldWorkflowID.txt)
+            echo OldWorkflowID: "$(cat ~/OldWorkflowID.txt)"
+            echo NewWorkflowID:udapeople-${CIRCLE_WORKFLOW_ID:0:7} 
       - run:
           name: Remove old stacks and files
           command: |
+            export OldWorkflowID=$(cat ~/OldWorkflowID.txt)
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
             then
               echo Deleting...
