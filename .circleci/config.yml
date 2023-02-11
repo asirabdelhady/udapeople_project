@@ -341,9 +341,10 @@ jobs:
               cd ..
               tar -C backend -czvf artifact.tar.gz .
               cp artifact.tar.gz ~/project/.circleci/ansible/roles/deploy/files
+              cd ansible
               echo "Contents  of the inventory.txt file is"
-              cat - .circleci/ansible/inventory.txt
-              ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ~/inventory.txt .circleci/ansible/deploy-backend.yml      
+              cat - inventory.txt
+              ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt deploy-backend.yml      
       - revert-migrations
       - destroy-environment
 
