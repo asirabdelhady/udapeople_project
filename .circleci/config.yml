@@ -413,11 +413,11 @@ jobs:
             cat ~/OldWorkflowID.txt
             echo OldWorkflowID: "$(cat ~/OldWorkflowID.txt)"
             echo $OldWorkflowID
-            echo NewWorkflowID:udapeople-${CIRCLE_WORKFLOW_ID:0:7} 
+            echo NewWorkflowID:udapeople-${CIRCLE_WORKFLOW_ID:0:7}
       - persist_to_workspace:
           root: ~/
           paths:
-            - OldWorkflowID.txt
+            - OldWorkflowID.txt 
 
       - revert-migrations 
       - destroy-environment  
