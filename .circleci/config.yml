@@ -1,6 +1,6 @@
-version: 2.1
+version: 2.1 
 
-commands:
+commands: 
     destroy-environment:
       description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
       parameters:
@@ -404,7 +404,6 @@ jobs:
             export OldWorkflowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --no-paginate --region us-east-1 --output text)
             echo $OldWorkflowID
             echo $OldWorkflowID > ~/OldWorkflowID.txt
-
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
             --stack-name InitialStack \
