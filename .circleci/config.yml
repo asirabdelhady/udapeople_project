@@ -404,7 +404,8 @@ jobs:
       - run:
           name: Run Tests
           no_output_timeout: 30m
-          command: python -m unittest
+          command: |
+            python -m unittest
       - run:
           name: Update cloudfront distribution
           command: |
