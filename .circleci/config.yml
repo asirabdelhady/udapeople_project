@@ -402,6 +402,10 @@ jobs:
             sudo apt install ansible -y
             sudo pip install ansible 
       - run:
+          name: Run Tests
+          no_output_timeout: 30m
+          command: python -m unittest
+      - run:
           name: Update cloudfront distribution
           command: |
             export OldWorkflowID=$(aws cloudformation list-exports --query "Exports[?Name==\`WorkflowID\`].Value" --no-paginate --region us-east-1 --output text)
