@@ -341,7 +341,7 @@ jobs:
 
   smoke-test:
       docker:
-        - image: cimg/base:2021.04 
+        - image: cimg/base:2021.04  
       steps:
         - checkout
         - install-aws-cli
