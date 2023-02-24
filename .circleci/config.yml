@@ -321,7 +321,7 @@ jobs:
             sudo apt install python3-pip
             sudo apt install ansible -y
             sudo pip install ansible
-      - attach_workspace:
+      - attach_workspace: 
           at: ~/
       - run:
           name: Deploy backend
