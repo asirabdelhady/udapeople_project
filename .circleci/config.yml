@@ -184,6 +184,7 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  
+              exit 1
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -363,7 +364,7 @@ jobs:
                 if curl -s ${URL} | grep "Welcome"
                 then
                     # Change this to 0 after the job fails
-                  exit 0
+                  exit 1
                 else
                   exit 1
                 fi
