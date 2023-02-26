@@ -240,13 +240,12 @@ jobs:
     steps:
       - checkout
       - install-aws-cli
-      - restore_cache:
-          keys: [backend-build]
       - run:
           name: Run migrations
           command: |
               cd backend
               npm install
+              npm run build
               npm run migrations > migrations_dump.txt 
               cat migrations_dump.txt
               if grep -q "has been executed successfully." migrations_dump.txt
