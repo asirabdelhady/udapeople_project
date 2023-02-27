@@ -319,7 +319,7 @@ jobs:
             sudo apt install gzip -y
             sudo apt install python3-pip
             sudo apt install ansible -y
-            sudo pip install ansible
+            sudo pip install ansible 
       - attach_workspace: 
           at: ~/
       - run:
