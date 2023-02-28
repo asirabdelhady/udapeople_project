@@ -241,6 +241,8 @@ jobs:
     steps:
       - checkout
       - install-aws-cli
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Run migrations
           command: |
