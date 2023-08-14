@@ -2,10 +2,23 @@ pipeline{
     agent any
 
     stages{
-        stage("build frontend"){
-            steps{
-                echo "Building front end"
-            }
+            stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
+    
+        stage("build frontend"){
+            steps{
+                sh '''
+                    cd frontend/
+                    npm install
+                    npm run build
+                '''
+            }
+            }   
+        }
+}
+
 }
