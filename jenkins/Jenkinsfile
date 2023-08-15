@@ -1,24 +1,21 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-            stages {
+    stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-    
-        stage("build frontend"){
-            steps{
+
+        stage('Build Frontend') {
+            steps {
                 sh '''
                     cd frontend/
                     npm install
                     npm run build
                 '''
             }
-            }   
         }
-}
-
+    }
 }
