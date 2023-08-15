@@ -20,7 +20,7 @@ pipeline {
                     '''
                     
                     archiveArtifacts artifacts: 'frontend/dist/**', allowEmptyArchive: true
-                    stash name: 'frontend-cache', includes: frontendCacheDir
+                    stash name: 'frontend-cache', includes: 'frontend-cache/**'
 
                     
                 }
@@ -39,7 +39,7 @@ pipeline {
                     '''
                     
                     archiveArtifacts artifacts: 'backend/dist/**', allowEmptyArchive: true
-                    stash name: 'backend-cache', includes: backendCacheDir
+                    stash name: 'backend-cache', includes: 'backend-cache/**'
 
                     
                 }
