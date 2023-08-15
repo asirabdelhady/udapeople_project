@@ -9,32 +9,40 @@ pipeline {
         }
 
         stage('Build Frontend') {
-            def frontendCacheDir = "${WORKSPACE}/frontend-cache"
+            steps{
+                script{
+                    def frontendCacheDir = "${WORKSPACE}/frontend-cache"
 
-            steps {
-                sh '''
+                    sh '''
                     cd frontend/
                     npm install
                     npm run build
-                '''
-                archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
-                stash name: 'frontend-cache', includes: frontendCacheDir
+                    '''
+                    
+                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
+                    stash name: 'frontend-cache', includes: frontendCacheDir
 
-
+                    
+                }
             }
         }
 
         stage('Build Backend'){
-            def backendCacheDir = "${WORKSPACE}/backend-cache"
-
             steps{
-                sh '''
+                script{
+                    def backendCacheDir = "${WORKSPACE}/backend-cache"
+
+                    sh '''
                     cd backend/
                     npm install
-                    npm run build 
-                '''
-                archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
-                stash name: 'backend-cache', includes: backendCacheDir
+                    npm run build
+                    '''
+                    
+                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
+                    stash name: 'backend-cache', includes: backendCacheDir
+
+                    
+                }
             }
         }
     }
