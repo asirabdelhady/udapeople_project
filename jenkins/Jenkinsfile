@@ -29,6 +29,27 @@ pipeline {
                 stash name: 'frontend-cache', includes: 'frontend/node_modules/**/*, frontend/build/*'
             }
         }
+        stage('Build Backend') {
+            steps{
+                    sh '''
+                    cd backend/
+                    npm install
+                    npm run build
+                    '''
+            }
+        }
+
+        stage('Archive Backend Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '*', allowEmptyArchive: true
+            }
+        }
+
+        stage('Stash Backend Cache') {
+            steps {
+                stash name: 'backend-cache', includes: 'backend/node_modules/**/*, backend/build/*'
+            }
+        }
     }
 
     post {
