@@ -19,7 +19,7 @@ pipeline {
                     npm run build
                     '''
                     
-                    archiveArtifacts artifacts: 'frontend/dist/**', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
                     stash name: 'frontend-cache', includes: 'frontend-cache/**'
 
                     
@@ -38,7 +38,7 @@ pipeline {
                     npm run build
                     '''
                     
-                    archiveArtifacts artifacts: 'backend/dist/**', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
                     stash name: 'backend-cache', includes: 'backend-cache/**'
 
                     
