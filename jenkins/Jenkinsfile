@@ -92,7 +92,7 @@ pipeline {
 
                     cat ansible/inventory.txt
                     '''
-                    stash name: 'ansible-inventory', includes: '.ansible/inventory.txt'
+                    stash name: 'ansible-inventory', includes: './ansible/inventory.txt'
 
                 }  
         }
