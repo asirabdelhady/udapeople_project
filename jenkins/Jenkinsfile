@@ -88,6 +88,20 @@ pipeline {
                 '''
             }
         }
+        stage("Adding backend server ip to inverntory"){
+            steps{
+                sh'''
+                    cd ./jenkins/
+
+                    INSTANCE_IP=$(gcloud compute instances describe backend-server \
+                    --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+
+                    echo  INSTANCE_IP > ansible/inventory.txt
+
+                    cat ansible/inventory.txt
+                '''
+            }
+        }
     }
 
     post {
