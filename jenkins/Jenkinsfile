@@ -80,7 +80,7 @@ pipeline {
                     terraform apply --auto-approve
                 '''
             }
-        }
+        }  
         stage("Adding backend server ip to inverntory"){
                 steps{
                     sh'''
