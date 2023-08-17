@@ -3,9 +3,12 @@
 provider "google" {
   project     = "your-gcp-project-id"
   region      = "us-central1"  # Change to your desired region
+  credentials = file("credentianls.json")
+  zone = var.zone
 }
 
 resource "google_compute_firewall" "backend_firewall" {
+  project = var.project_id
   name    = "backend-firewall"
   network = "my-vpc"
 
@@ -19,6 +22,7 @@ resource "google_compute_firewall" "backend_firewall" {
 }
 
 resource "google_compute_instance" "backend_server" {
+  project = var.project_id
   name         = "backend-server"
   machine_type = "e2-micro"  # Change to your desired machine type
   zone         = "us-central1-c"  # Change to your desired zone
