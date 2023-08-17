@@ -60,6 +60,24 @@ pipeline {
                 '''
             }
         }
+        stage('Testing backend'){
+            steps{
+                unstash 'backend-cache'
+                sh'''
+                    cd backend/
+                    npm run test
+                '''
+            }
+        }
+        stage('Deploying backend'){
+            steps{
+                sh'''
+                    cd terraform/modules/backend/
+                    terraform init
+                    terraform apply --auto-approve
+                '''
+            }
+        }
     }
 
     post {
