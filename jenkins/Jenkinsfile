@@ -99,7 +99,7 @@ pipeline {
             steps{
                 stash name: 'ansible-inventory', includes: './jenkins/ansible/inventory.txt'
             }
-        }
+        }  
     } 
 
     post {
