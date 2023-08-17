@@ -8,14 +8,6 @@ variable "vpc-name" {
   
 }
 
-variable "public_subnet" {
-  
-}
-
-variable "private_subnet" {
-  
-}
-
 variable "project_id" {
     default = "udapeople-new-395001"
   description = "Google Cloud Project ID"
@@ -39,12 +31,4 @@ variable "zone" {
 variable "ubuntu" {
     default = "ubuntu-os-cloud/ubuntu-2004-lts"
   
-}
-
-variable "public_subnet_cidr" {
-  default = "10.0.1.0/24"
-}
-
-variable "private_subnet_cidr" {
-  default = "10.0.2.0/24"
 }
