@@ -72,7 +72,7 @@ pipeline {
         stage('Deploying backend'){
             steps{
                 sh'''
-                    cd terraform/modules/backend/
+                    cd ./terraform/modules/backend/
                     terraform init
                     terraform apply --auto-approve
                 '''
