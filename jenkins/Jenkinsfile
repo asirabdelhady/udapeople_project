@@ -2,13 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Build Frontend') {
+            stage('Build Frontend') {
             steps{
                     sh '''
                     cd frontend/
@@ -71,9 +65,8 @@ pipeline {
         }
         stage('Deploying backend'){
             steps{
-                checkout scm
                 sh'''
-                    cd files/
+                    cd /jenkins/files/
                     terraform init
                     terraform apply --auto-approve
                 '''
