@@ -3,6 +3,7 @@
 provider "google" {
   project     = "your-gcp-project-id"
   region      = "us-central1"  # Change to your desired region
+  credentials = file("credentianls.json")
 }
 
 resource "google_compute_firewall" "backend_firewall" {
