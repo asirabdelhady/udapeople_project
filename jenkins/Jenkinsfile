@@ -92,9 +92,13 @@ pipeline {
 
                     cat ansible/inventory.txt
                     '''
-                    stash name: 'ansible-inventory', includes: './jenkins/ansible/inventory.txt'
 
                 }  
+        }
+        stage("stash inventory"){
+            steps{
+                stash name: 'ansible-inventory', includes: './jenkins/ansible/inventory.txt'
+            }
         }
     } 
 
