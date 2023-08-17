@@ -19,8 +19,8 @@ pipeline {
                     npm run build
                     '''
                     
-                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
-                    stash name: 'frontend-cache', includes: 'frontend-cache/**'
+                    archiveArtifacts artifacts: 'dist/', allowEmptyArchive: true
+                    stash name: 'frontend-cache', includes: 'frontend-cache/'
 
                     
                 }
@@ -38,8 +38,8 @@ pipeline {
                     npm run build
                     '''
                     
-                    archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
-                    stash name: 'backend-cache', includes: 'backend-cache/**'
+                    archiveArtifacts artifacts: 'dist/', allowEmptyArchive: true
+                    stash name: 'backend-cache', includes: 'backend-cache/'
 
                     
                 }
