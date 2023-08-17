@@ -63,10 +63,17 @@ pipeline {
                 '''
             }
         }
+        stage('pwd'){
+            steps{
+                sh'''
+                    pwd
+                '''
+            }
+        }
         stage('Deploying backend'){
             steps{
                 sh'''
-                    cd /jenkins/files/
+                    cd ./jenkins/files/
                     terraform init
                     terraform apply --auto-approve
                 '''
