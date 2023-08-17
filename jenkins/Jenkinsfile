@@ -50,6 +50,16 @@ pipeline {
                 stash name: 'backend-cache', includes: 'backend/node_modules/**/*, backend/build/*'
             }
         }
+
+        stage('Testing frontend'){
+            steps{
+                unstash 'frontend-cache'
+                sh'''
+                    cd frontend/
+                    npm run test
+                '''
+            }
+        }
     }
 
     post {
