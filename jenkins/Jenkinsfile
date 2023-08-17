@@ -71,6 +71,7 @@ pipeline {
         }
         stage('Deploying backend'){
             steps{
+                checkout scm
                 sh'''
                     cd files/
                     terraform init
