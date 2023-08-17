@@ -94,7 +94,7 @@ pipeline {
                     '''
                     stash name: 'ansible-inventory', includes: 'ansible/inventory.txt'
 
-                }
+                }  
         }
     } 
 
