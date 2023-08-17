@@ -85,7 +85,7 @@ pipeline {
             steps{
                 sh'''
                     cd ./jenkins/
-                    gcloud auth activate-service-account --key-file=/terraform/modules/backend/credentials.json
+                    gcloud auth activate-service-account --key-file=./terraform/modules/backend/credentials.json
 
                     INSTANCE_IP=$(gcloud compute instances describe backend-server \
                     --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
