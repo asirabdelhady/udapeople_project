@@ -25,4 +25,4 @@ resource "google_storage_bucket_iam_member" "bucket_public_read" {
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
-
+ 
