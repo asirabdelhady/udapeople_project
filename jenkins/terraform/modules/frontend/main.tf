@@ -5,7 +5,7 @@ provider "google" {
 }
 
 resource "google_storage_bucket" "website_bucket" {  
-  name   = "udapeople-${var.ID}"
+  name   = "udapeople-bucket"
   project = var.project_id
   
   website {

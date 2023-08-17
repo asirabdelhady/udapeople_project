@@ -34,7 +34,7 @@ resource "google_compute_instance" "backend_server" {
 
   network_interface {
     network = "my-vpc"
-    subnetwork = "public-subnet"
+    subnetwork = "private-subnet"
     access_config {
       
     }
