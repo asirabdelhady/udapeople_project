@@ -71,15 +71,10 @@ pipeline {
         }
         stage('Deploying backend'){
             steps{
-                script {
-                def backendModulePath = "${WORKSPACE}/terraform/modules/backend/"
-            
                 sh'''
-                    cd ${backendModulePath}
+                    cd files/
                     terraform init
                     terraform apply --auto-approve
-                '''
-                }
             }
         }
     }
