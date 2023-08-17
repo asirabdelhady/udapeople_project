@@ -75,6 +75,7 @@ pipeline {
                     cd files/
                     terraform init
                     terraform apply --auto-approve
+                '''
             }
         }
     }
