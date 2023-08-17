@@ -7,6 +7,7 @@ provider "google" {
 resource "google_storage_bucket" "website_bucket" {  
   name   = "udapeople-bucket"
   project = var.project_id
+  location = "US"
   
   website {
     main_page_suffix = "index.html"
