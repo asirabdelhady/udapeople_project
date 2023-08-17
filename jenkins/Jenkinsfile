@@ -83,7 +83,9 @@ pipeline {
         }
         stage("Adding backend server ip to inverntory"){
             steps{
-                sh'''
+                script{
+                    steps{
+                    sh'''
                     cd ./jenkins/
                     gcloud auth activate-service-account --key-file=./terraform/modules/backend/credentials.json
 
@@ -91,7 +93,11 @@ pipeline {
                     --format='get(networkInterfaces[0].accessConfigs[0].natIP)') > ansible/inventory.txt
 
                     cat ansible/inventory.txt
-                '''
+                    '''
+                    stash name: 'ansible-inventory', includes: 'ansible/inventory.txt'
+
+                    }
+                }
             }
         }
     } 
