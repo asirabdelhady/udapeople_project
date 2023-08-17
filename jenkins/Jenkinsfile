@@ -20,14 +20,19 @@ pipeline {
 
         stage('Archive Frontend Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'build/*', allowEmptyArchive: true
+                archiveArtifacts artifacts: '*', allowEmptyArchive: true
             }
         }
 
         stage('Stash Frontend Cache') {
             steps {
-                stash name: 'frontend-cache', includes: 'node_modules/**/*, build/**/*'
+                stash name: 'frontend-cache', includes: 'node_modules/**/*, *'
             }
         }
     }
+
+    post {
+        failure {
+            echo 'Pipeline failed'
+        }
 }
