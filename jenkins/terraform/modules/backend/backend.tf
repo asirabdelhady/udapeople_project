@@ -2,7 +2,7 @@
 provider "google" {
   project     = var.project_id
   region      = "us-central1"  # Change to your desired region
-  credentials = file("credentianls.json")
+  credentials = file("credentials.json")
   zone = var.zone
 }
 
