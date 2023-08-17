@@ -79,6 +79,15 @@ pipeline {
                 '''
             }
         }
+        stage('Deploying frontend'){
+            steps{
+                sh'''
+                    cd ./jenkins/terraform/modules/frontend/
+                    terraform init
+                    terraform apply --auto-approve
+                '''
+            }
+        }
     }
 
     post {
