@@ -1,6 +1,3 @@
-module "network" {
-  source = "../network"
-}
 
 provider "google" {
   project     = "your-gcp-project-id"
@@ -37,7 +34,7 @@ resource "google_compute_instance" "backend_server" {
 
   network_interface {
     network = "my-vpc"
-    subnetwork = module.network.private_subnet
+    subnetwork = "public-subnet"
     access_config {
       
     }
