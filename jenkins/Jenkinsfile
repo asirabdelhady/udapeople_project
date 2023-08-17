@@ -82,7 +82,6 @@ pipeline {
             }
         }
         stage("Adding backend server ip to inverntory"){
-            script{
                 steps{
                     sh'''
                     cd ./jenkins/
@@ -96,7 +95,6 @@ pipeline {
                     stash name: 'ansible-inventory', includes: 'ansible/inventory.txt'
 
                 }
-            }
         }
     } 
 
