@@ -97,18 +97,22 @@ pipeline {
                 }  
         }
         stage('Configure server'){
-    steps{
+    steps {
         script {
             sshagent(['90ebf0f3-ec7d-43ae-bc97-9f9d94ab2410']) {
+                // Set the SSH key in the Jenkins environment
+                sh 'export SSH_KEY="$(ssh-add -L)"'
+                
+                // Run your Ansible playbook
                 sh '''
                     gcloud auth activate-service-account --key-file=./jenkins/terraform/modules/backend/credentials.json
                     cd ./jenkins/ansible/
-                    cat inventory.txt > /var/lib/jenkins/.ssh/known_hosts
                     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt configure-server.yml
                 '''
             }
         }
     }
+
 }
 
     } 
