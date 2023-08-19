@@ -102,7 +102,7 @@ pipeline {
                 sh'''
                     gcloud auth activate-service-account --key-file=./jenkins/terraform/modules/backend/credentials.json
                     cd ./jenkins/ansible/
-                    cat inventory.txt
+                    cat inventory.txt > /var/lib/jenkins/.ssh/known_hosts
                     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt configure-server.yml
                 '''
                 }
