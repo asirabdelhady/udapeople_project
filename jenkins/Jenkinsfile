@@ -101,6 +101,7 @@ pipeline {
                 script{
                 sh'''
                     cd ./jenkins/ansible/
+                    cat inventory.txt
                     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt configure-server.yml
                 '''
                 }
