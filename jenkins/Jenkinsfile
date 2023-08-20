@@ -18,6 +18,11 @@ pipeline {
 
 
     stages {
+        stage('echo node version') {
+            steps {
+               sh "node --version"
+            }
+        }
         stage('Install Node.js with NVM') {
             steps {
                 script {
