@@ -16,8 +16,9 @@ pipeline {
         VERSION='1'
     }
 
-        tools {
+    tools {
         // Define the Node.js tool by the name you provided in the tool configuration.
+        
         nodejs "Node"
     }
 
@@ -25,10 +26,13 @@ pipeline {
     stages {
         stage('echo node version') {
             steps {
-               sh '''
-                node --version
+                node{
+                    sh '''
+                        node --version
 
-               '''
+                    '''
+                }
+
             }
         }
         /*
