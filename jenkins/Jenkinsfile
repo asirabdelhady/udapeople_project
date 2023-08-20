@@ -125,16 +125,9 @@ pipeline {
                 }
             }
         }
-        stage('echoing build id'){
+        stage('Run Migrations'){
             steps{
-                sh'''
-                    echo $BUILD_ID
-                    echo $BUILD_NUMBER
-                '''
-            }
-        }
-        /*stage('Run Migrations'){
-            steps{
+                unstash 'backend-cache'
                 sh'''
                     cd backend/
                     npm run migrations > migrations_dump.txt
@@ -142,12 +135,12 @@ pipeline {
                     if grep -q "has been executed successfully." migrations_dump.txt
                     then
                         echo "where in!"
-                        curl https://https://kvdb.io/SVgjzaE1tssMb4vzCtfZ3r/migration_${BUILD_ID} -d '1' --insecure
+                        curl https://kvdb.io/SVgjzaE1tssMb4vzCtfZ3r/migration_${BUILD_ID} -d '1' --insecure
                     fi
 
                 '''
             }
-        }*/
+        }
 
     } 
 
@@ -155,6 +148,7 @@ pipeline {
             failure {
                 echo 'Pipeline failed'
                 gcpCleanUp()
+                revetMigrations()
             }
     }
 }
