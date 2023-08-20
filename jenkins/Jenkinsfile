@@ -63,7 +63,6 @@ pipeline {
                 archiveArtifacts artifacts: '*', allowEmptyArchive: true
             }
         }
-        */
 
         stage('Stash Backend Cache') {
             steps {
