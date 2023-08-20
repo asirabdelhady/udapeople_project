@@ -130,6 +130,7 @@ pipeline {
                 unstash 'backend-cache'
                 sh'''
                     cd backend/
+                    npm install
                     npm run migrations > migrations_dump.txt
                     cat migrations_dump.txt
                     if grep -q "has been executed successfully." migrations_dump.txt
@@ -137,7 +138,6 @@ pipeline {
                         echo "where in!"
                         curl https://kvdb.io/SVgjzaE1tssMb4vzCtfZ3r/migration_${BUILD_ID} -d '1' --insecure
                     fi
-
                 '''
             }
         }
