@@ -22,6 +22,7 @@ pipeline {
             steps{
                     sh '''
                     cd frontend/
+                    nvm use 13.8.0
                     npm install
                     npm run build
                     '''
@@ -43,6 +44,7 @@ pipeline {
             steps{
                     sh '''
                     cd backend/
+                    nvm use 13.8.0
                     npm install
                     npm run build
                     '''
@@ -66,6 +68,7 @@ pipeline {
                 unstash 'frontend-cache'
                 sh'''
                     cd frontend/
+                    nvm use 13.8.0
                     npm run test
                 '''
             }
@@ -75,6 +78,7 @@ pipeline {
                 unstash 'backend-cache'
                 sh'''
                     cd backend/
+                    nvm use 13.8.0
                     npm run test
                 '''
             }
@@ -130,6 +134,7 @@ pipeline {
                 unstash 'backend-cache'
                 sh'''
                     cd backend/
+                    nvm use 13.8.0
                     npm install
                     npm run migrations > migrations_dump.txt
                     cat migrations_dump.txt
