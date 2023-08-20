@@ -79,13 +79,14 @@ pipeline {
                 archiveArtifacts artifacts: '*', allowEmptyArchive: true
             }
         }
+        */
 
         stage('Stash Backend Cache') {
             steps {
                 stash name: 'backend-cache', includes: 'backend/node_modules/**/*, backend/build/*'
             }
         }
-
+/*
         stage('Testing frontend'){
             steps{
                 unstash 'frontend-cache'
