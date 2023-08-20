@@ -18,20 +18,26 @@ pipeline {
 
 
     stages {
-        stage('using node 13.8.0'){
-            steps{
-                sh'''
-                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-                source ~/.bashrc
-                nvm install 13.8.0
-                '''
+        stage('Install Node.js with NVM') {
+            steps {
+                script {
+                    def nvmDir = "${env.WORKSPACE}/.nvm"
+                    def nodeVersion = '13.8.0'
+
+                    sh "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash"
+
+                    sh "export NVM_DIR=${nvmDir}"
+                    sh "[ -s \"${nvmDir}/nvm.sh\" ] && . \"${nvmDir}/nvm.sh\""
+
+                    sh "nvm install ${nodeVersion}"
+                    sh "nvm use ${nodeVersion}"
+                }
             }
         }
         stage('Build Frontend') {
             steps{
                     sh '''
                     cd frontend/
-                    nvm use 13.8.0
                     npm install
                     npm run build
                     '''
@@ -53,7 +59,6 @@ pipeline {
             steps{
                     sh '''
                     cd backend/
-                    nvm use 13.8.0
                     npm install
                     npm run build
                     '''
@@ -77,7 +82,6 @@ pipeline {
                 unstash 'frontend-cache'
                 sh'''
                     cd frontend/
-                    nvm use 13.8.0
                     npm run test
                 '''
             }
@@ -87,7 +91,6 @@ pipeline {
                 unstash 'backend-cache'
                 sh'''
                     cd backend/
-                    nvm use 13.8.0
                     npm run test
                 '''
             }
