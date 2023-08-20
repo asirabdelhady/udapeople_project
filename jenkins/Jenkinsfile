@@ -26,10 +26,7 @@ pipeline {
     stages {
         stage('echo node version') {
             steps {
-                node (label: 'any') {
                     sh "node --version"
-                }
-
             }
         }
        
