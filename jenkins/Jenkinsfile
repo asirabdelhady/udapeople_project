@@ -29,6 +29,131 @@ pipeline {
                     sh "node --version"
             }
         }
+        stage('Build Frontend') {
+            steps{
+                    sh '''
+                    cd frontend/
+                    npm install
+                    npm run build
+                    '''
+            }
+        }
+
+        stage('Archive Frontend Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '*', allowEmptyArchive: true
+            }
+        }
+
+        stage('Stash Frontend Cache') {
+            steps {
+                stash name: 'frontend-cache', includes: 'frontend/node_modules/**/*, frontend/build/*'
+            }
+        }
+        stage('Build Backend') {
+            steps{
+                    sh '''
+                    cd backend/
+                    npm install
+                    npm run build
+                    '''
+            }
+        }
+
+        stage('Archive Backend Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '*', allowEmptyArchive: true
+            }
+        }
+        */
+
+        stage('Stash Backend Cache') {
+            steps {
+                stash name: 'backend-cache', includes: 'backend/node_modules/**/*, backend/build/*'
+            }
+        }
+/*
+        stage('Testing frontend'){
+            steps{
+                unstash 'frontend-cache'
+                sh'''
+                    cd frontend/
+                    npm run test
+                '''
+            }
+        }
+        stage('Testing backend'){
+            steps{
+                unstash 'backend-cache'
+                sh'''
+                    cd backend/
+                    npm run test
+                '''
+            }
+        }
+        stage('Deploying backend'){
+            steps{
+                sh'''
+                    cd ./jenkins/terraform/modules/backend/
+                    terraform init
+                    terraform apply --auto-approve
+                '''
+            }
+        }
+        stage('Deploying frontend'){
+            steps{
+                sh'''
+                    cd ./jenkins/terraform/modules/frontend/
+                    terraform init
+                    terraform apply --auto-approve
+                '''
+            }
+        }  
+        stage("Adding backend server ip to inverntory"){
+            steps{
+                sh'''
+                cd ./jenkins/
+                gcloud auth activate-service-account --key-file=./terraform/modules/backend/credentials.json
+
+                echo $(gcloud compute instances describe backend-server --zone=us-central1-c \
+                --format='get(networkInterfaces[0].accessConfigs[0].natIP)') > ansible/inventory.txt
+
+                cat ansible/inventory.txt
+                '''
+
+            }  
+        }
+        stage('Configure server'){
+            steps {
+                script {
+                    sshagent(['90ebf0f3-ec7d-43ae-bc97-9f9d94ab2410']) {
+                        sh 'export SSH_KEY="$(ssh-add -L)"'
+                        sh '''
+                            gcloud auth activate-service-account --key-file=./jenkins/terraform/modules/backend/credentials.json
+                            cd ./jenkins/ansible/
+                            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt configure-server.yml
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Run Migrations'){
+            steps{
+                unstash 'backend-cache'
+                sh'''
+                    cd backend/
+                    nvm use 13.8.0
+                    npm install
+                    npm run migrations > migrations_dump.txt
+                    cat migrations_dump.txt
+                    if grep -q "has been executed successfully." migrations_dump.txt
+                    then
+                        echo "where in!"
+                        curl https://kvdb.io/SVgjzaE1tssMb4vzCtfZ3r/migration_${BUILD_ID} -d '1' --insecure
+                    fi
+                '''
+            }
+        }
        
     } 
 
