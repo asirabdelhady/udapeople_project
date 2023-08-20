@@ -18,7 +18,7 @@ pipeline {
 
         tools {
         // Define the Node.js tool by the name you provided in the tool configuration.
-        nodejs "NodeJS 13.8.0"
+        nodejs "Node"
     }
 
 
