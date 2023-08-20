@@ -18,7 +18,16 @@ pipeline {
 
 
     stages {
-            stage('Build Frontend') {
+        stage('using node 13.8.0'){
+            steps{
+                sh'''
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+                source ~/.bashrc
+                nvm install 13.8.0
+                '''
+            }
+        }
+        stage('Build Frontend') {
             steps{
                     sh '''
                     cd frontend/
