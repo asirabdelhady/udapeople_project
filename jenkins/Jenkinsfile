@@ -16,9 +16,7 @@ pipeline {
         VERSION='1'
     }
 
-    tools {
-        // Define the Node.js tool by the name you provided in the tool configuration.
-        
+    tools {        
         nodejs "Node"
     }
 
@@ -72,7 +70,6 @@ pipeline {
                 stash name: 'backend-cache', includes: 'backend/node_modules/**/*, backend/build/*'
             }
         }
-/*
         stage('Testing frontend'){
             steps{
                 unstash 'frontend-cache'
@@ -157,11 +154,11 @@ pipeline {
        
     } 
 
-       /*  post {
+    post {
             failure {
                 echo 'Pipeline failed'
                 gcpCleanUp()
                 revetMigrations()
             }
-    }*/
+    }
 }
