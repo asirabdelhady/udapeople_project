@@ -129,6 +129,7 @@ pipeline {
             steps{
                 sh'''
                     echo $BUILD_ID
+                    echo $BUILD_NUMBER
                 '''
             }
         }
