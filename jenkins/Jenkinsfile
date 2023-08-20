@@ -57,13 +57,13 @@ pipeline {
             steps {
                 archiveArtifacts artifacts: '*', allowEmptyArchive: true
             }
-        }
+        }*/
 
         stage('Stash Frontend Cache') {
             steps {
                 stash name: 'frontend-cache', includes: 'frontend/node_modules/**/*, frontend/build/*'
             }
-        }
+        }/*
         stage('Build Backend') {
             steps{
                     sh '''
