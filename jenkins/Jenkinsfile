@@ -5,7 +5,7 @@ pipeline {
     environment{
         TYPEORM_CONNECTION='postgres'
         TYPEORM_ENTITIES='./dist/modules/domain/*/.entity{.ts,.js}'
-        TYPEORM_HOST='postgres'
+        TYPEORM_HOST='postgres-db'
         TYPEORM_PORT='5432'
         TYPEORM_USERNAME='postgres'
         TYPEORM_PASSWORD='postgresPass'
@@ -156,7 +156,7 @@ pipeline {
             failure {
                 echo 'Pipeline failed'
                 gcpCleanUp()
-                revetMigrations()
+                revertMigrations()
             }
     }
 }
