@@ -137,7 +137,7 @@ pipeline {
             steps{
                 sh'''
                     pwd
-                    ls ./backend/
+                    ls ./backend/dist/
                 '''
             }
         }
