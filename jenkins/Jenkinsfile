@@ -147,7 +147,7 @@ pipeline {
                 sh'''
                     cd backend/
                     npm install
-                    npm run migrations > migrations_dump.txt
+                    npm run migrations --dir ./backend/dist/migrations > migrations_dump.txt
                     cat migrations_dump.txt
                     if grep -q "has been executed successfully." migrations_dump.txt
                     then
