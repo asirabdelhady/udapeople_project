@@ -1,4 +1,6 @@
-
+module "network" {
+  source = "../network"
+}
 resource "google_compute_instance" "jenkins" {
   name         = "jenkins-server"
   machine_type = "e2-medium"
@@ -13,7 +15,7 @@ resource "google_compute_instance" "jenkins" {
 
   network_interface {
     network = var.vpc-name
-    subnetwork = var.public_subnet
+    subnetwork = module.network.public_subnet
     access_config {
       // Ephemeral IP
     }
@@ -37,7 +39,7 @@ resource "google_compute_instance" "jenkins" {
 }
 
 
-resource "google_compute_instance" "postgress_db" {
+resource "google_compute_instance" "postgres_db" {
   project = var.project_id
   name         = "postgres-db"
   machine_type = var.e2-micro 
@@ -53,7 +55,10 @@ resource "google_compute_instance" "postgress_db" {
 
   network_interface {
     network = var.vpc-name
-    subnetwork = var.private_subnet
+    subnetwork = module.network.private_subnet
+    access_config {
+      
+    }
   }
 
   metadata_startup_script = <<-EOF
@@ -83,7 +88,7 @@ resource "google_compute_instance" "jumpbox" {
 
   network_interface {
     network    = var.vpc-name
-    subnetwork = var.public_subnet
+    subnetwork = module.network.public_subnet
     access_config {
       
     }

@@ -33,9 +33,5 @@ variable "ubuntu" {
   
 }
 
-variable "public_subnet" {
-  
-}
-variable "private_subnet" {
-  
-}
+# variable "public_subnet" {}
+#variable "private_subnet" {}
