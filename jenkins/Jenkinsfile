@@ -138,7 +138,6 @@ pipeline {
                 unstash 'backend-cache'
                 sh'''
                     cd backend/
-                    nvm use 13.8.0
                     npm install
                     npm run migrations > migrations_dump.txt
                     cat migrations_dump.txt
