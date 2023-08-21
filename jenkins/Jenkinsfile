@@ -4,13 +4,13 @@ pipeline {
 
     environment{
         TYPEORM_CONNECTION='postgres'
-        TYPEORM_ENTITIES='./dist/modules/domain/*/.entity{.ts,.js}'
+        TYPEORM_ENTITIES='./dist/modules/domain/**/*.entity{.ts,.js}'
         TYPEORM_HOST='postgres-db'
         TYPEORM_PORT='5432'
         TYPEORM_USERNAME='postgres'
         TYPEORM_PASSWORD='postgresPass'
         TYPEORM_DATABASE='postgres'
-        TYPEORM_MIGRATIONS='./dist/migrations/.*ts'
+        TYPEORM_MIGRATIONS='./dist/migrations/*.ts'
         TYPEORM_MIGRATIONS_DIR='./dist/migrations'
         NODE_ENV='production' 
         VERSION='1'
