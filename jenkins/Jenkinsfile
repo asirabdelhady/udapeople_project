@@ -4,14 +4,14 @@ pipeline {
 
     environment{
         TYPEORM_CONNECTION='postgres'
-        TYPEORM_ENTITIES='./backend/dist/modules/domain/**/*.entity.ts'
+        TYPEORM_ENTITIES='./modules/domain/*.entity.ts'
         TYPEORM_HOST='postgres-db'
         TYPEORM_PORT='5432'
         TYPEORM_USERNAME='postgres'
         TYPEORM_PASSWORD='postgresPass'
         TYPEORM_DATABASE='postgres'
-        TYPEORM_MIGRATIONS='./backend/dist/migrations/*.ts'
-        TYPEORM_MIGRATIONS_DIR='./backend/dist/migrations'  
+        TYPEORM_MIGRATIONS='./migrations/*.ts'
+        TYPEORM_MIGRATIONS_DIR='./migrations'  
         NODE_ENV='production' 
         VERSION='1'
     }
@@ -147,7 +147,7 @@ pipeline {
                 sh'''
                     cd backend/
                     npm install
-                    npm run migrations --dir ./backend/dist/migrations > migrations_dump.txt
+                    npm run migrations --dir ./migrations > migrations_dump.txt
                     cat migrations_dump.txt
                     if grep -q "has been executed successfully." migrations_dump.txt
                     then
