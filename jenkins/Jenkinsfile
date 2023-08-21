@@ -133,6 +133,14 @@ pipeline {
                 }
             }
         }
+        stage('pwd'){
+            steps{
+                sh'''
+                    pwd
+                    ls ./backend/
+                '''
+            }
+        }
         stage('Run Migrations'){
             steps{
                 unstash 'backend-cache'
