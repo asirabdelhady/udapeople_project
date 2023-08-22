@@ -10,10 +10,8 @@ pipeline {
         TYPEORM_USERNAME='postgres'
         TYPEORM_PASSWORD='postgresPass'
         TYPEORM_DATABASE='postgres'
-        TYPEORM_MIGRATIONS='./migrations/*.ts'
-        TYPEORM_MIGRATIONS_DIR='./migrations'  
-        NODE_ENV='production' 
-        VERSION='1'
+        TYPEORM_MIGRATIONS='./migrations/*{.ts,.js}'
+        TYPEORM_MIGRATIONS_DIR='./migrations' 
     }
 
     tools {        
@@ -143,12 +141,10 @@ pipeline {
         }
         stage('Run Migrations'){
             steps{
-                unstash 'backend-cache'
                 sh'''
                     cd backend/
                     npm install
-                    cd migrations
-                    npm run migrations --dir ./migrations > migrations_dump.txt
+                    npm run migrations > migrations_dump.txt
                     cat migrations_dump.txt
                     if grep -q "has been executed successfully." migrations_dump.txt
                     then
