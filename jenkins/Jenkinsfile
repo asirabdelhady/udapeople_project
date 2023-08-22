@@ -174,7 +174,7 @@ pipeline {
                     cd frontend
                     npm run build
                     tar -czvf artifact-"${BUILD_ID}".tar.gz dist
-                    gsutil cp -r dist gs://udapeople-bucket
+                    gsutil cp -r dist/* gs://udapeople-bucket
                 '''
             }
         }
