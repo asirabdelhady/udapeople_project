@@ -147,6 +147,7 @@ pipeline {
                 sh'''
                     cd backend/
                     npm install
+                    cd migrations
                     npm run migrations --dir ./migrations > migrations_dump.txt
                     cat migrations_dump.txt
                     if grep -q "has been executed successfully." migrations_dump.txt
@@ -157,13 +158,37 @@ pipeline {
                 '''
             }
         }
+        stage('Get backend URL'){
+            steps{
+                sh'''
+                    export BACKEND_IP=$(gcloud compute instances describe backend-server --zone=us-central1-c \
+                    --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+
+                    export API_URL='https://${BACKEND_IP:3030}'
+                    echo 'API_URL = ${API_URL}'
+                    echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+                    cat frontend/.env 
+                '''
+            }
+        }
+        stage('Deploy Frontend'){
+            steps{
+                unstash 'frontend-cache'
+                sh'''
+                    cd frontend
+                    npm run build
+                    tar -czvf artifact-"${BUILD_ID}".tar.gz dist
+                    gsutil cp -r dist gs://udapeople-bucket
+                '''
+            }
+        }
        
     } 
 
     post {
             failure {
                 echo 'Pipeline failed'
-                //gcpCleanUp()
+                gcpCleanUp()
                 revertMigrations()
             }
     }
